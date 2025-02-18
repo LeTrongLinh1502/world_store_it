@@ -9,7 +9,7 @@ const error = ref(null);
 
 const fetchUsers = async () => {
   try {
-    const response = await axios.get("http://localhost:8085/api/v1/user");
+    const response = await axios.get("http://tronglinhnevergiveup.online:8085/api/v1/user");
     console.log("response day: " + response)
     users.value = response.data;
   } catch (err) {
