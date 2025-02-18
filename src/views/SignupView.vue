@@ -24,7 +24,7 @@ const handleSignUp = async () => {
       password: password.value
     };
     console.log("user info: ", JSON.stringify(user))
-    const response = await fetch("http://localhost:8085/api/v1/user", {
+    const response = await fetch("http://tronglinhnevergiveup.online:8085/api/v1/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
