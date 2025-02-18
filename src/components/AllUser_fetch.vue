@@ -8,7 +8,7 @@ const error = ref(null);
 
 const fetchUsers = async () => {
   try {
-    const response = await fetch("http://localhost:8085/api/v1/user");
+    const response = await fetch("http://tronglinhnevergiveup.online:8085/api/v1/user");
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
