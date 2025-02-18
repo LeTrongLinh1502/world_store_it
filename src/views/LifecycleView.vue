@@ -37,7 +37,7 @@ export default {
         {id: 105, email: 'test6@gmail.com', active: true},
         {id: 106, email: 'test7@gmail.com', active: false},
       ],
-      oldTitle: ""// Lưu giá trị cũ
+      previousTitle: ''// Lưu giá trị cũ
     }
   },
   components: {
@@ -60,6 +60,7 @@ export default {
 
   methods: {
     handleChangeTitle(newTitle) {
+      this.previousTitle = this.title; // Lưu giá trị cũ trước khi thay đổi
       this.title = newTitle;
     },
     handleDeleteUser(userId) {
@@ -83,9 +84,7 @@ export default {
     // console.log('mounted', this.title, document.querySelector('.container').classList);
   },
   beforeUpdate() {
-    this.oldTitle = this.title; // Lưu lại giá trị cũ trước khi cập nhật
-    console.log('beforeUpdate - Giá trị cũ:', this.oldTitle);
-    console.log('beforeUpdate - Giá trị mới:', this.title);
+    console.log('beforeUpdate - Giá trị cũ:', this.previousTitle);
     console.log('beforeUpdate - DOM hiện tại:', document.querySelector('.header h1')?.innerText,
         this.$refs.listUserComponent ? this.$refs.listUserComponent.$el.innerText : 'Không có nội dung');
     // console.log('beforeUpdate', this.oldTitle, this.listUser);
