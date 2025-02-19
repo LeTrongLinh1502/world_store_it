@@ -99,25 +99,18 @@ onMounted(() => {
             <div class="form-block">
               <div class="text-center mb-5">
                 <h3>Login to <strong>World Store IT</strong></h3>
-                <!-- <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p> -->
               </div>
               <form @submit.prevent="handleLogin">
                 <div class="form-group first">
                   <label for="username">Username</label>
-                  <input v-model="username" type="text" class="form-control" placeholder="your-email@gmail.com"
-                         id="username">
+                  <input v-model="username" type="text" class="form-control" placeholder="your-email@gmail.com" id="username">
                 </div>
                 <div class="form-group last mb-3">
                   <span class="btn-show-pass">
-							        <i class="zmdi zmdi-eye"></i>
-						       </span>
+							<i class="zmdi zmdi-eye"></i>
+						</span>
                   <label for="password">Password</label>
-                  <!--                  <input v-model="password" :type="showPassword" class="form-control" placeholder="Your Password" id="password">-->
-                  <input v-model="password" :type="showPassword ? 'text' : 'password'" class="form-control"
-                         placeholder="Your Password" id="password">
-                  <!--                  <button type="button" @click="togglePasswordVisibility" class="toggle-password">-->
-                  <!--                    <i :class="showPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i>-->
-                  <!--                  </button>-->
+                  <input v-model="password" :type="showPassword ? 'text' : 'password'" class="form-control" placeholder="Your Password" id="password">
                 </div>
 
                 <p v-if="errorMessage" class="text-danger">{{ errorMessage }}</p>
@@ -161,21 +154,5 @@ onMounted(() => {
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
   transition: all 0.4s;
-}
-
-.btn-show-pass:hover {
-  color: #6a7dfe;
-  color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
-  color: -o-linear-gradient(left, #21d4fd, #b721ff);
-  color: -moz-linear-gradient(left, #21d4fd, #b721ff);
-  color: linear-gradient(left, #21d4fd, #b721ff);
-}
-
-.btn-show-pass.active {
-  color: #6a7dfe;
-  color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
-  color: -o-linear-gradient(left, #21d4fd, #b721ff);
-  color: -moz-linear-gradient(left, #21d4fd, #b721ff);
-  color: linear-gradient(left, #21d4fd, #b721ff);
 }
 </style>

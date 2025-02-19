@@ -41,19 +41,9 @@ const router = createRouter({
       component: AllUser_fetch
     },
     {
-      path:'/test',
-      name:'test',
+      path:'/lifecycle',
+      name:'lifecycle',
       component: () => import('../views/LifecycleView.vue')
-    },
-    {
-      path:'/test1',
-      name:'test1',
-      component: () => import('../components/test.vue')
-    },
-    {
-      path:'/base',
-      name:'base',
-      component: () => import('../views/BaseView.vue')
     }
   ],
 })
