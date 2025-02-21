@@ -44,6 +44,11 @@ const router = createRouter({
       path:'/lifecycle',
       name:'lifecycle',
       component: () => import('../views/LifecycleView.vue')
+    },
+    {
+      path:'/upsert_product',
+      name:'UpsertProduct',
+      component: () => import('../components/product/UpsertProduct.vue')
     }
   ],
 })

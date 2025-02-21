@@ -1,57 +1,64 @@
 <script setup>
-import { ref } from "vue";
+import {onMounted, ref} from "vue";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import { useRouter } from "vue-router";
 
-const products = ref([
-  {
-    id: 1,
-    name: "Stereo Headset",
-    mainImage: "//quick-shop-01.myshopify.com/cdn/shop/products/img3.jpg?v=1506347682",
-    secondaryImage: "//quick-shop-01.myshopify.com/cdn/shop/products/10_70c72b0c-44bf-4fbd-a58c-34128b5caabd.jpg?v=1507292148",
-    price: 706.00,
-    originalPrice: 750.00
-  },
-  {
-    id: 2,
-    name: "Stylish Handbag",
-    mainImage: "//quick-shop-01.myshopify.com/cdn/shop/products/img2.jpg?v=1506347678",
-    secondaryImage: "//quick-shop-01.myshopify.com/cdn/shop/products/18.jpg?v=1507291659",
-    price: 500.00,
-    originalPrice: 600.00
-  },
-  {
-    id: 3,
-    name: "Stereo Headset",
-    mainImage: "//quick-shop-01.myshopify.com/cdn/shop/products/img3.jpg?v=1506347682",
-    secondaryImage: "//quick-shop-01.myshopify.com/cdn/shop/products/10_70c72b0c-44bf-4fbd-a58c-34128b5caabd.jpg?v=1507292148",
-    price: 706.00,
-    originalPrice: 750.00,
-  },
-  {
-    id: 4,
-    name: "Stylish Handbag",
-    mainImage: "//quick-shop-01.myshopify.com/cdn/shop/products/img2.jpg?v=1506347678",
-    secondaryImage: "//quick-shop-01.myshopify.com/cdn/shop/products/18.jpg?v=1507291659",
-    price: 500.00,
-    originalPrice: 600.00,
-  },
-  {
-    id: 5,
-    name: "Stereo Headset",
-    mainImage: "//quick-shop-01.myshopify.com/cdn/shop/products/img3.jpg?v=1506347682",
-    secondaryImage: "//quick-shop-01.myshopify.com/cdn/shop/products/10_70c72b0c-44bf-4fbd-a58c-34128b5caabd.jpg?v=1507292148",
-    price: 706.00,
-    originalPrice: 750.00,
-  },
-  {
-    id: 6,
-    name: "Stylish Handbag",
-    mainImage: "//quick-shop-01.myshopify.com/cdn/shop/products/img2.jpg?v=1506347678",
-    secondaryImage: "//quick-shop-01.myshopify.com/cdn/shop/products/18.jpg?v=1507291659",
-    price: 500.00,
-    originalPrice: 600.00,
-  },
-]);
+const router = useRouter();
+const products = ref([]);
+const loading = ref(true);
+const error = ref(null);
+
+const getAllProduct = async () => {
+  try {
+    const response = await fetch("http://tronglinhnevergiveup.online:8085/api/v1/product");
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log("response data:", data);
+    products.value = data;
+  } catch (err) {
+    error.value = "Lỗi khi lấy dữ liệu!";
+    console.error(err);
+  } finally {
+    loading.value = false;
+  }
+};
+async function deleteProduct(productId) {
+  if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này không?")) {
+    await fetch(`http://tronglinhnevergiveup.online:8085/api/v1/product/${productId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+        .then(response => {
+          if (response.ok && response) {
+            alert("Sản phẩm đã được xóa thành công!");
+            location.reload(); // Reload lại trang sau khi xóa
+          } else {
+            alert("Xóa sản phẩm thất bại!");
+          }
+        })
+        .catch(error => console.error("Lỗi:", error));
+  }
+}
+
+function navigateToUpdate(product) {
+  router.push({
+    name: "UpsertProduct",
+    query: {
+      id: product.id,
+      name: product.name,
+      main_image: product.main_image,
+      secondary_image: product.secondary_image,
+      price: product.price,
+      original_price: product.original_price,
+    },
+    state: { productData: product }, // Truyền data qua state
+  });
+}
+onMounted(getAllProduct);
 </script>
 
 <template>
@@ -71,14 +78,14 @@ const products = ref([
                   </div>
                 </div>
                 <div class="grid__item wide--one-half post-large--one-half large--one-half small--grid-item">
-                  <a href="" class="text-right right">Add products<i class="fa fa-add" aria-hidden="true"></i></a>
+                  <a href="/upsert_product" class="text-right right">Add products<i class="fa fa-add" aria-hidden="true"></i></a>
                 </div>
                 <ul class="grid-uniform loadItems">
                   <li v-for="product in products" :key="product.id" class="grid__item item-row  wide--one-quarter post-large--one-quarter large--one-third medium--one-half small--grid-item four_ppr on-sale"
                       id="product-12558086795">
                     <div class="products wow animated fadeIn">
                       <div class="product-container">
-                        <a href="/collections/frontpage/products/a-jean-short" class="grid-link">
+                        <a href="#" class="grid-link">
                           <div class="featured-tag">
                             <span class="badge badge--sale">
                               <span class="gift-tag badge__text">Sale</span>
@@ -86,11 +93,10 @@ const products = ref([
                           </div>
                           <div class="ImageOverlayCa"></div>
                           <div class="reveal">
-                          <span class="product-additional">
-                              <img :src="product.mainImage" class="featured-image" alt="Leather Backpack">
-                          </span>
-                            <img :src="product.secondaryImage"
-                                 class="hidden-feature_img" alt="Leather Backpack"/>
+                            <span class="product-additional">
+                              <img :src="product.main_image" class="featured-image" alt="main image">
+                            </span>
+                              <img :src="product.secondary_image" class="hidden-feature_img" alt="secondary image"/>
                           </div>
                         </a>
                         <div class="product_right_tag   offer_exist ">
@@ -98,20 +104,18 @@ const products = ref([
                         </div>
                         <div class="ImageWrapper">
                           <div class="product-button">
-
-                            <a href="/products/a-jean-short">
-                              <i class="fa fa-link" aria-hidden="true"></i>
+                            <a href="#" @click="deleteProduct(product.id)">
+                              <i class="fa fa-trash" aria-hidden="true"></i>
                             </a>
-
-                            <a href="#" class="compare action-home4" data-pid="a-jean-short" title=""
-                               data-original-title="Compare product"> <i class="fa fa-chart-simple"></i></a>
-
+                            <a href="#" @click.prevent="navigateToUpdate(product)">
+                              <i class="fa fa-rotate" aria-hidden="true"></i>
+                            </a>
                           </div>
                         </div>
                       </div>
                       <div class="product-detail">
 
-                        <a href="/collections/frontpage/products/a-jean-short" class="grid-link__title">{{product.name}}</a>
+                        <a href="#" class="grid-link__title">{{product.name}}</a>
 
                         <div class="product_left">
                           <div class="grid-link__meta">
@@ -121,7 +125,7 @@ const products = ref([
                                 <span class=money>{{product.price}}</span>
                               </div>
 
-                              <del class="grid-link__sale_price"><span class=money>${{product.originalPrice}}</span></del>
+                              <del class="grid-link__sale_price"><span class=money>${{product.original_price}}</span></del>
                             </div>
                           </div>
                         </div>
@@ -141,11 +145,11 @@ const products = ref([
 
                           <div class="add-to-wishlist">
                             <div class="show">
-                              <div class="default-wishbutton-a-jean-short loading"><a class="add-in-wishlist-js" href="a-jean-short">
+                              <div class="default-wishbutton-a-jean-short loading"><a class="add-in-wishlist-js" href="#">
                                 <i class="fa fa-heart"></i><span class="tooltip-label">Wishlist</span></a></div>
                               <div class="loadding-wishbutton-a-jean-short loading"
                                    style="display: none; pointer-events: none"><a class="add_to_wishlist"
-                                                                                  href="a-jean-short"><i
+                                                                                  href="#"><i
                                   class="fa fa-circle-o-notch fa-spin"></i></a></div>
                               <div class="added-wishbutton-a-jean-short loading" style="display: none;"><a
                                   class="added-wishlist add_to_wishlist" href="/pages/wishlist"><i
@@ -167,4 +171,18 @@ const products = ref([
 </template>
 
 <style>
+.reveal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.featured-image,
+.hidden-feature_img {
+  width: 350px;
+  height: 300px;
+  object-fit: cover;
+}
 </style>
