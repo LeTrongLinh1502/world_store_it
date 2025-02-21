@@ -1,6 +1,5 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 </script>
@@ -10,13 +9,16 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="Welcome to World Store IT!" />
-
+      <div class="greetings">
+        <h1 class="green">Welcome to World Store IT</h1>
+      </div>
       <nav>
         <RouterLink to="/home">Home</RouterLink>
+        <RouterLink to="/about">Categories</RouterLink>
         <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/user/get-all">All User</RouterLink>
-        <RouterLink to="/user/get-all-fetch">All User 2</RouterLink>
+        <RouterLink to="/user/get-all">Pages</RouterLink>
+        <RouterLink to="/user/get-all-fetch">Blog</RouterLink>
+        <RouterLink to="/user/get-all-fetch">Contact</RouterLink>
       </nav>
     </div>
 
@@ -37,6 +39,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 header {
   line-height: 1.5;
   max-height: 100vh;
+  background: #10707f;
 }
 
 .logo {
@@ -62,7 +65,7 @@ nav a.router-link-exact-active:hover {
 nav a {
   display: inline-block;
   padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+  border-left: px solid var(--color-border);
 }
 
 nav a:first-of-type {

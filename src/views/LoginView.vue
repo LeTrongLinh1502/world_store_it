@@ -99,7 +99,6 @@ onMounted(() => {
             <div class="form-block">
               <div class="text-center mb-5">
                 <h3>Login to <strong>World Store IT</strong></h3>
-                <!-- <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p> -->
               </div>
               <form @submit.prevent="handleLogin">
                 <div class="form-group first">
@@ -107,29 +106,16 @@ onMounted(() => {
                   <input v-model="username" type="text" class="form-control" placeholder="your-email@gmail.com"
                          id="username">
                 </div>
-                <div class="form-group last mb-3">
-                  <span class="btn-show-pass">
-							        <i class="zmdi zmdi-eye"></i>
-						       </span>
+                <div class="form-group last mb-3 position-relative">
                   <label for="password">Password</label>
-                  <!--                  <input v-model="password" :type="showPassword" class="form-control" placeholder="Your Password" id="password">-->
-                  <input v-model="password" :type="showPassword ? 'text' : 'password'" class="form-control"
+                  <input v-model="password" :type="showPassword ? 'text' : 'password'" class="form-control pr-5"
                          placeholder="Your Password" id="password">
-                  <!--                  <button type="button" @click="togglePasswordVisibility" class="toggle-password">-->
-                  <!--                    <i :class="showPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i>-->
-                  <!--                  </button>-->
+                  <span class="btn-show-pass" @click="showPassword = !showPassword">
+                    <i class="zmdi" :class="showPassword ? 'zmdi-eye-off' : 'zmdi-eye'"></i>
+                  </span>
                 </div>
 
                 <p v-if="errorMessage" class="text-danger">{{ errorMessage }}</p>
-
-                <div class="d-sm-flex mb-5 align-items-center">
-                  <label class="control control--checkbox mb-3 mb-sm-0">
-                    <span class="caption">Remember me</span>
-                    <input type="checkbox" v-model="rememberMe">
-                    <div class="control__indicator"></div>
-                  </label>
-                  <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span>
-                </div>
 
                 <input type="submit" value="Log In" class="btn btn-block btn-primary">
               </form>
@@ -141,41 +127,16 @@ onMounted(() => {
   </div>
 </template>
 <style scoped>
+.position-relative {
+  position: relative;
+}
+
 .btn-show-pass {
-  font-size: 15px;
-  color: #999999;
-
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  align-items: center;
   position: absolute;
-  height: 100%;
-  top: 0;
-  right: 0;
-  padding-right: 5px;
+  right: 10px;
+  top: 65%;
+  transform: translateY(-50%);
   cursor: pointer;
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  transition: all 0.4s;
-}
-
-.btn-show-pass:hover {
-  color: #6a7dfe;
-  color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
-  color: -o-linear-gradient(left, #21d4fd, #b721ff);
-  color: -moz-linear-gradient(left, #21d4fd, #b721ff);
-  color: linear-gradient(left, #21d4fd, #b721ff);
-}
-
-.btn-show-pass.active {
-  color: #6a7dfe;
-  color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
-  color: -o-linear-gradient(left, #21d4fd, #b721ff);
-  color: -moz-linear-gradient(left, #21d4fd, #b721ff);
-  color: linear-gradient(left, #21d4fd, #b721ff);
+  color: #777;
 }
 </style>

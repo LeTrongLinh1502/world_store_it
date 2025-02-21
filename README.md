@@ -1,33 +1,25 @@
-<<<<<<< HEAD
-# world_store_it
-=======
+
 # world-store-it
 
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
->>>>>>> 28cbbb6 (first commit project)
+## Các task
+### 1. Lifecycle hooks
+- beforeCreate()
+- created()
+- beforeMount()
+- mounted()
+- beforeUpdate()
+- updated()
+- beforeUnmount()
+- unmounted()
+- Demo các hàm trên tại LifeCycleView, tại url: localhost:5173/lifecycle
+#### 1.1 Demo beforeCreate(), created(), beforeMount() và mounted()
+![img.png](img.png)
+#### 1.2 Demo beforeUpdate(), updated()
+![img_1.png](img_1.png)
+#### 1.3 Demo beforeUnmount(), unmounted()
+![img_2.png](img_2.png)
+## 2. CRUD
+- Create: chức năng signup, create product
+- Read: danh sách sản phẩm
+- Update: Cập nhật user_info, update product
+- Delete: Xóa sản phẩm
