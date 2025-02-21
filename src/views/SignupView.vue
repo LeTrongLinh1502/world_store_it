@@ -12,10 +12,10 @@ import '@/assets/css/owl.carousel.min.css'
 
 const username = ref('');
 const password = ref('');
-const rememberMe = ref(false);
 const router = useRouter();
 const loading = ref(true);
 const error = ref(null);
+const showPassword = ref(false);
 
 const handleSignUp = async () => {
   try {
@@ -76,7 +76,8 @@ onMounted(() => {
 
 <template>
   <div class="half">
-    <div class="bg order-1 order-md-2" style="background-image: url('https://cellphones.com.vn/sforum/wp-content/uploads/2022/06/40.jpg');"></div>
+    <div class="bg order-1 order-md-2"
+         style="background-image: url('https://cellphones.com.vn/sforum/wp-content/uploads/2022/06/40.jpg');"></div>
     <div class="contents order-2 order-md-1">
 
       <div class="container">
@@ -84,20 +85,24 @@ onMounted(() => {
           <div class="col-md-6">
             <div class="form-block">
               <div class="text-center mb-5">
-                <h3>SignUp to <strong>World Store IT</strong></h3>
-                <!-- <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p> -->
+                <h3>Signup to <strong>World Store IT</strong></h3>
               </div>
               <form @submit.prevent="handleSignUp">
                 <div class="form-group first">
                   <label for="username">Username</label>
-                  <input v-model="username" type="text" class="form-control" placeholder="your-email@gmail.com" id="username">
+                  <input v-model="username" type="text" class="form-control" placeholder="your-email@gmail.com"
+                         id="username">
                 </div>
-                <div class="form-group last mb-3">
+                <div class="form-group last mb-3 position-relative">
                   <label for="password">Password</label>
-                  <input v-model="password" type="password" class="form-control" placeholder="Your Password" id="password">
+                  <input v-model="password" :type="showPassword ? 'text' : 'password'" class="form-control pr-5"
+                         placeholder="Your Password" id="password">
+                  <span class="btn-show-pass" @click="showPassword = !showPassword">
+                    <i class="zmdi" :class="showPassword ? 'zmdi-eye-off' : 'zmdi-eye'"></i>
+                  </span>
                 </div>
 
-                <input type="submit" value="SignUp" class="btn btn-block btn-primary">
+                <input type="submit" value="Signup" class="btn btn-block btn-primary">
               </form>
             </div>
           </div>
@@ -107,5 +112,16 @@ onMounted(() => {
   </div>
 </template>
 <style scoped>
+.position-relative {
+  position: relative;
+}
 
+.btn-show-pass {
+  position: absolute;
+  right: 10px;
+  top: 65%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #777;
+}
 </style>
